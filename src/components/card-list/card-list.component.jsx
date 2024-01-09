@@ -1,8 +1,13 @@
 import './card-list.styles.scss'
 import Card from '../card/card.component';
+import { getCars } from '../../utils/firebase.utils';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 const CardList=()=>{
 
+    getCars()
     const cars =[
         {
             id:1,

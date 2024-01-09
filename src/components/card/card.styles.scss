@@ -1,8 +1,7 @@
 .card-container {
     display:flex;
     flex-direction: column;
-    background-color: #95dada;
-    border: 1px solid grey;
+    border: 2px solid whitesmoke;
     border-radius: 5px;
     padding: 25px;
     cursor: pointer;
@@ -10,6 +9,13 @@
     backface-visibility: hidden;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
+    color: white;
+
+    .contacts {
+        border: 1px solid grey;
+        border-radius: 5px; 
+        
+    }
   }
   
   .card-container:hover {

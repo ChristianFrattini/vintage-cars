@@ -9,8 +9,8 @@ const NavBar=()=>{
             <a className="title" href="/">Vintage Cars</a>
         </div>
         <div className="right-section">
-            <a href="/contact">Contact Us</a>
-            <a href="/about">About</a>
+            <a href="/contact">Contacts</a>
+            <a href="/admin">Admin</a>
         </div>
         </div>
 
