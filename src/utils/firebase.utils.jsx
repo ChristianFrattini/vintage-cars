@@ -4,7 +4,7 @@
 import {initializeApp} from 'firebase/app'
 import {getFirestore, setDoc, getDoc, doc, collection, getDocs} from 'firebase/firestore'
 import CardList from '../components/card-list/card-list.component';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCJUKiF0DffWUM1wgeZjN1UPf0ARf_X3Qo",
@@ -21,21 +21,30 @@ const app = initializeApp(firebaseConfig);
 //init services
 export const db =getFirestore();
 
-//export const [cars, setCars]=useState([])
+
+
 
 export const getCarsList=()=>{
-  //collection ref
- const colRef=collection(db, 'cars')
- //getcollection data
- getDocs(colRef).then((snapshot)=>{
-  let cars =[]
-  snapshot.docs.forEach((doc)=>{
-    cars.push({...doc.data(), id: doc.id})
-  })
-  console.log(cars)
- }).catch(err=>{console.log(err.message)})
- 
+
+ const [cars, setCars]=useState([])
+
+    useEffect(()=>{
+        const colRef=collection(db, 'cars')
+        //getcollection data
+        getDocs(colRef).then((snapshot)=>{
+        let cars =[]
+        snapshot.docs.forEach((doc)=>{
+        cars.push({...doc.data(), id: doc.id}) 
+    })
+        //console.log(cars)
+        setCars(cars)
+        
+    }).catch(err=>{console.log(err.message)})
+    },[])
+    return cars
 }
+
+
 
 
  
