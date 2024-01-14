@@ -1,11 +1,11 @@
 import './card.styles.scss'
 
 const Card=({car})=>{
-    const {id, name}=car
+    const {car_id, car_name}=car
     return(
-         <div className='card-container' key={id}> 
+         <div className='card-container' key={car_id}> 
                 <div className='card-name'>
-                    <h2>{name}</h2>
+                    <h2>{car_name}</h2>
                 </div> 
                 <div>
                     

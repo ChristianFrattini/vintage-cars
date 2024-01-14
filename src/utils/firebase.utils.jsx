@@ -2,7 +2,9 @@
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {initializeApp} from 'firebase/app'
-import {getFirestore, setDoc, getDoc, doc} from 'firebase/firestore'
+import {getFirestore, setDoc, getDoc, doc, collection, getDocs} from 'firebase/firestore'
+import CardList from '../components/card-list/card-list.component';
+import { useState } from 'react';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCJUKiF0DffWUM1wgeZjN1UPf0ARf_X3Qo",
@@ -16,15 +18,26 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+//init services
 export const db =getFirestore();
 
-export const getCars=async()=>{
-  const docRef = doc(db,'cars', 'car1')
-  const dataSnapshot=await getDoc(docRef);
-  if(dataSnapshot.exists()){
-    const data=dataSnapshot.data()
-    console.log(data.car_name)
-    return data
-  }
-  
+//export const [cars, setCars]=useState([])
+
+export const getCarsList=()=>{
+  //collection ref
+ const colRef=collection(db, 'cars')
+ //getcollection data
+ getDocs(colRef).then((snapshot)=>{
+  let cars =[]
+  snapshot.docs.forEach((doc)=>{
+    cars.push({...doc.data(), id: doc.id})
+  })
+  console.log(cars)
+ }).catch(err=>{console.log(err.message)})
+ 
 }
+
+
+ 
+
+
