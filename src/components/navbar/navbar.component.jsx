@@ -1,19 +1,22 @@
+import { Outlet, Link } from 'react-router-dom'
 import './navbar.styles.scss'
+import { Fragment } from 'react'
 
 const NavBar=()=>{
     
     return(
- 
+       <Fragment>
         <div className="navbar">
         <div className="left-section">
-            <a className="title" href="/">Vintage Cars</a>
+            <Link className="title" to="/">Vintage Cars</Link>
         </div>
         <div className="right-section">
-            <a href="/contact">Contacts</a>
-            <a href="/admin">Admin</a>
+            <Link to="/contact">Contacts</Link>
+            <Link to="/admin">Admin</Link>
         </div>
         </div>
-
+        <Outlet/>
+        </Fragment>
     )
 }
 
