@@ -4,6 +4,7 @@ import { useState } from 'react'
 import FormInput from '../form-input/form-input.component'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import {auth, signInAuthUserWithEmailAndPassword} from '../../utils/firebase.utils'
+import { useNavigate } from 'react-router-dom'
 
 const Login=()=>{
 
@@ -15,7 +16,7 @@ const Login=()=>{
     const [formFields,setFormFields]=useState(defaultFormFields)
     const {email, password}=formFields
 
-
+    const navigate = useNavigate()
 
     const onChangeHandler=()=>{
         const {name, value}=event.target
@@ -26,6 +27,7 @@ const Login=()=>{
         e.preventDefault()
        try{
         const {user}=await signInAuthUserWithEmailAndPassword(email,password)
+        navigate('/adminpage')
         alert('logged in')
        }catch(error){
         console.log(error)

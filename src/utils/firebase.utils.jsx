@@ -5,7 +5,7 @@ import {initializeApp} from 'firebase/app'
 import {getFirestore, setDoc, getDoc, doc, collection, getDocs} from 'firebase/firestore'
 import CardList from '../components/card-list/card-list.component';
 import { useState, useEffect } from 'react';
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCJUKiF0DffWUM1wgeZjN1UPf0ARf_X3Qo",
@@ -50,6 +50,14 @@ export const getCarsList=()=>{
 export const signInAuthUserWithEmailAndPassword=async( email,password)=>{  //authentication with user and password
   if(!email||!password) return;   //if email or password is not provided then exit
   return await signInWithEmailAndPassword(auth, email, password);
+}
+
+export const signOutUser=async()=>{
+  try{
+    await signOut(auth)
+  }catch(error){
+    console.log(error)
+  }
 }
 
  

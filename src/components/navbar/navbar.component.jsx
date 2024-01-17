@@ -11,7 +11,7 @@ const NavBar=()=>{
             <Link className="title" to="/">Vintage Cars</Link>
         </div>
         <div className="right-section">
-            <Link to="/contact">Contacts</Link>
+            <Link to="/services">Services</Link>
             <Link to="/admin">Admin</Link>
         </div>
         </div>
