@@ -29,12 +29,21 @@
     display: block;
     margin-bottom: 10px; 
   }
-  
-  .form-container input,
-  .form-container textarea {
+
+  .form-container input{
     width: 100%;
     padding: 5px;
-    margin-bottom: 15px; 
+    
+  }
+  
+  .form-container textarea {
+    width: 100%;
+    
+    margin-bottom: 5px; 
+
+    width: 100%; // Set the width to 100% of the container
+    height: 150px; // Set the default height
+    resize: vertical; // Allow vertical resizing
   }
   .close-button {
     background-color: #ff5555;

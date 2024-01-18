@@ -2,7 +2,7 @@
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {initializeApp} from 'firebase/app'
-import {getFirestore, setDoc, getDoc, doc, collection, getDocs} from 'firebase/firestore'
+import {getFirestore, setDoc, getDoc, doc, collection, getDocs, deleteDoc} from 'firebase/firestore'
 import { useState, useEffect } from 'react';
 import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth'
 // Your web app's Firebase configuration
@@ -23,8 +23,6 @@ export const db =getFirestore();
 export const auth = getAuth(app);
 
 
-
-
 export const getCarsList=()=>{
 
  const [cars, setCars]=useState([])
@@ -41,7 +39,7 @@ export const getCarsList=()=>{
         setCars(cars)
         
     }).catch(err=>{console.log(err.message)})
-    },[])
+    })
     return cars
 }
 
@@ -61,8 +59,8 @@ export const signOutUser=async()=>{
 
 export const deleteItem= async(id)=>{
   try{
-    const listRef=collection(db, 'cars')
-    
+    const docRef = doc(db,'cars', id)
+    deleteDoc(docRef)
   }catch(error){
     console.log(error)
   }
@@ -81,7 +79,7 @@ export const addItem=async(car_id, car_name, car_description)=>{
 
       try{
         await setDoc(docRef, {car_id,car_name,car_description})
-        alert ('new item successfully added')
+        //alert ('new item successfully added')
         
       }catch (error){
         console.log('error creating the ', error.message)

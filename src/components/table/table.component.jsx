@@ -1,9 +1,16 @@
 import { deleteField } from 'firebase/firestore'
 import './table.styles.scss'
 import { deleteItem } from '../../utils/firebase.utils'
+import { useEffect, useState } from 'react'
 
 
 const Table=({cars})=>{
+
+    
+
+    const handleRemove=(id)=>{
+        deleteItem(id)
+    }
 
     return(
         <div className='car-table-container'>
@@ -20,8 +27,10 @@ const Table=({cars})=>{
           <tr key={car.car_id}>
             <td>{car.car_id}</td>
             <td>{car.car_name}</td>
-            <td>{car.car_description}</td>
-            
+            <td><button>Expand</button></td>
+            <td>
+                <button className='remove-button' onClick={()=>handleRemove(car.car_id)}>X</button>
+            </td>
           </tr>
         ))}
       </tbody>

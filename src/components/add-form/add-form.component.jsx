@@ -26,7 +26,7 @@ const AddItem = () => {
     const id=generateRandomNumber().toString()
 
     addItem(id, brand, description)
-    console.log(id, brand, description)
+    //console.log(id, brand, description)
     setIsFormVisible(false);
   };
 
