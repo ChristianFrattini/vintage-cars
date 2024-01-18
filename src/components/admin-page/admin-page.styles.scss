@@ -1,0 +1,17 @@
+// YourComponent.scss
+
+.admin-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buttons-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;  // This will push buttons to both sides
+    margin-top: 20px;  // Add margin as needed
+  }
+  
+  /* Add more styling as needed */
+  

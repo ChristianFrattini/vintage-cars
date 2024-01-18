@@ -3,7 +3,6 @@
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {initializeApp} from 'firebase/app'
 import {getFirestore, setDoc, getDoc, doc, collection, getDocs} from 'firebase/firestore'
-import CardList from '../components/card-list/card-list.component';
 import { useState, useEffect } from 'react';
 import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth'
 // Your web app's Firebase configuration
@@ -58,6 +57,43 @@ export const signOutUser=async()=>{
   }catch(error){
     console.log(error)
   }
+}
+
+export const deleteItem= async(id)=>{
+  try{
+    const listRef=collection(db, 'cars')
+    
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const addItem=async(car_id, car_name, car_description)=>{
+  
+    const docRef = doc(db,'cars', car_id)
+    console.log(car_id, car_name, car_description)
+    const snapshot=await getDoc(docRef);
+
+
+
+
+    if(!snapshot.exists()){  //if document does not exist then create one
+
+      try{
+        await setDoc(docRef, {car_id,car_name,car_description})
+        alert ('new item successfully added')
+        
+      }catch (error){
+        console.log('error creating the ', error.message)
+        alert('Error during submission. Please try again')
+      }
+      
+    }else{
+        console.log("Document data: existing");
+        alert('Registration unsuccessful. Email already registered for the prize draw!')
+        return
+    }
+    return snapshot;
 }
 
  
