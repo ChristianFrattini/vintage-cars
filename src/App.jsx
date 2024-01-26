@@ -11,8 +11,10 @@ import Admin from "./components/admin-page/admin-page.component";
 import Services from "./components/services/services.component";
 import ProtectedRoute from "./components/routes/protected-route.component";
 import ViewCarPage from "./components/view-car-page/view-car-page.component";
+//import { car_link } from "./components/card/card.component";
 
 const App = () => {
+  //console.log(car_link);
   return (
     <Routes>
       <Route path="/" element={<NavBar />}>
@@ -27,7 +29,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/cars/:carName" element={<ViewCarPage />} />
+        <Route path="cars/:car_id/:car_name" element={<ViewCarPage />} />
       </Route>
     </Routes>
   );

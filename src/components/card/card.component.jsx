@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import "./card.styles.scss";
 import { Link, useNavigate } from "react-router-dom";
-import ViewCarPage from "../view-car-page/view-car-page.component";
+
+let car_link;
 
 const Card = ({ car }) => {
-  let car_link;
   const { car_id, car_name } = car;
-  car_link = `/${car_name}`;
+  car_link = `cars/${car_id}/${car_name}`;
 
   return (
     <div className="card-container" key={car_id}>
