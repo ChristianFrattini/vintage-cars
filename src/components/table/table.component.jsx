@@ -25,7 +25,7 @@ const Table = ({ cars }) => {
               <td>{car.car_id}</td>
               <td>{car.car_name}</td>
               <td>
-                <ViewDescription cars={cars} />
+                <ViewDescription cars={car} />
               </td>
               <td>
                 <button
