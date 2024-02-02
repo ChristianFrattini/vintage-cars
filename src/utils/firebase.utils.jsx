@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth(app);
 
-export const getCarsList = () => {
+/*export const getCarsList = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
@@ -49,7 +49,9 @@ export const getCarsList = () => {
       });
   }, []);
   return cars;
-};
+};*/
+
+//export const carsList = getCarsList();
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   //authentication with user and password
@@ -74,7 +76,7 @@ export const deleteItem = async (id) => {
   }
 };
 
-export const addItem = async (car_id, car_name, car_description) => {
+/*export const addItem = async (car_id, car_name, car_description) => {
   const docRef = doc(db, "cars", car_id);
   console.log(car_id, car_name, car_description);
   const snapshot = await getDoc(docRef);
@@ -84,6 +86,7 @@ export const addItem = async (car_id, car_name, car_description) => {
 
     try {
       await setDoc(docRef, { car_id, car_name, car_description });
+
       //alert ('new item successfully added')
     } catch (error) {
       console.log("error creating the ", error.message);
@@ -91,10 +94,20 @@ export const addItem = async (car_id, car_name, car_description) => {
     }
   } else {
     console.log("Document data: existing");
-    alert(
-      "Registration unsuccessful. Email already registered for the prize draw!",
-    );
     return;
   }
   return snapshot;
+};*/
+
+export const selectCar = async (id) => {
+  const [cars, setCars] = useState([]);
+  try {
+    const docRef = doc(db, "cars", id);
+    const docSnapshot = await getDoc(docRef);
+    setCars(docSnapshot.data());
+    //console.log(docSnapshot.data());
+  } catch (error) {
+    console.log(error);
+  }
+  return cars;
 };

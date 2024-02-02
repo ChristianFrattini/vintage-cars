@@ -1,13 +1,19 @@
 import { deleteField } from "firebase/firestore";
 import "./table.styles.scss";
-import { deleteItem } from "../../utils/firebase.utils";
+//import { deleteItem } from "../../utils/firebase.utils";
 import { useEffect, useState } from "react";
 import ViewDescription from "../view-description/view-description.component";
+import { deleteItem } from "../../redux/carSlice";
+import { useDispatch } from "react-redux";
+import DeleteItem from "../delete-item/delete-item.component";
 
 const Table = ({ cars }) => {
-  const handleRemove = (id) => {
-    deleteItem(id);
-  };
+  //const dispatch = useDispatch();
+
+  /*const handleRemove = (id) => {
+    console.log(id);
+    dispatch(deleteItem(id));
+  };*/
 
   return (
     <div className="car-table-container">
@@ -28,12 +34,7 @@ const Table = ({ cars }) => {
                 <ViewDescription cars={car} />
               </td>
               <td>
-                <button
-                  className="remove-button"
-                  onClick={() => handleRemove(car.car_id)}
-                >
-                  X
-                </button>
+                <DeleteItem ids={car.car_id} />
               </td>
             </tr>
           ))}

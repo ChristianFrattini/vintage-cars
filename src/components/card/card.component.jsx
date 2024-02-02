@@ -6,6 +6,7 @@ let car_link;
 
 const Card = ({ car }) => {
   const { car_id, car_name } = car;
+  //console.log(car.id.car_name);
   car_link = `cars/${car_id}/${car_name}`;
 
   return (

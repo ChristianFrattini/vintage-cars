@@ -1,13 +1,14 @@
 import "./view-car-page.styles.scss";
+import { selectCar } from "../../utils/firebase.utils";
 
 const ViewCarPage = () => {
   const currentURL = window.location.href;
-  console.log("Current URL:", currentURL);
+  //console.log("Current URL:", currentURL);
 
   const parts = currentURL.split("/"); // Split the URL by '/' characters
   const carId = parts[4]; // Access the 4th segment of the URL
 
-  console.log("Car ID:", carId); // Outputs: Car ID
+  //console.log("Car ID:", carId); // Outputs: Ca ID
 
   return (
     <div>
