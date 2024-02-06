@@ -46,10 +46,10 @@ export const deleteItem = createAsyncThunk(
   "cars/deleteItem",
   async (car_id) => {
     try {
-      const id = { car_id };
-      console.log(car_id);
+      //const id = { car_id };
+      //console.log(car_id);
       const docRef = doc(db, "cars", car_id.ids);
-      console.log(docRef);
+      //console.log(docRef);
       await deleteDoc(docRef);
     } catch (error) {
       console.log(error);
@@ -57,10 +57,21 @@ export const deleteItem = createAsyncThunk(
   },
 );
 
+export const fetchItem = createAsyncThunk("cars/fetchItem", async (id) => {
+  const docRef = doc(db, "cars", id);
+
+  //let snapshot=[]
+  const snapshot = await getDoc(docRef);
+  //console.log(snapshot.data());
+
+  return snapshot.data();
+});
+
 const carSlice = createSlice({
   name: "Cars",
   initialState: {
     carsArray: [],
+    carArray: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -72,6 +83,9 @@ const carSlice = createSlice({
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.carsArray.filter((car) => car.car_id !== action.payload);
+    });
+    builder.addCase(fetchItem.fulfilled, (state, action) => {
+      state.carArray = action.payload;
     });
   },
 });

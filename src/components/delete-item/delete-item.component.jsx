@@ -6,7 +6,7 @@ const DeleteItem = (car_id) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    console.log(car_id);
+    //console.log(car_id);
     dispatch(deleteItem(car_id));
     dispatch(fetchCarsList());
   };
