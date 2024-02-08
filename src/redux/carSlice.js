@@ -7,10 +7,12 @@ import {
   setDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../utils/firebase.utils";
+import { db, storage } from "../utils/firebase.utils";
+import { ref, uploadBytes } from "firebase/storage";
 
 export const addItem = createAsyncThunk("cars/addCar", async (car) => {
   const { car_id, car_name, car_description } = car;
+
   const docRef = doc(db, "cars", car_id);
   const snapshot = await getDoc(docRef);
 
@@ -18,6 +20,12 @@ export const addItem = createAsyncThunk("cars/addCar", async (car) => {
     //if document does not exist then create one
     try {
       await setDoc(docRef, { car_id, car_name, car_description });
+      /*const frontImageRef = ref(
+        //image doc ref
+        storage,
+        `CarImages/${car_id}/${car_id}-${car_image.name}`,
+      );
+      await uploadBytes(frontImageRef, car_image).then(() => {}); */
     } catch (error) {
       console.log("error creating the ", error.message);
       alert("Error during submission. Please try again");
@@ -60,18 +68,30 @@ export const deleteItem = createAsyncThunk(
 export const fetchItem = createAsyncThunk("cars/fetchItem", async (id) => {
   const docRef = doc(db, "cars", id);
 
-  //let snapshot=[]
   const snapshot = await getDoc(docRef);
-  //console.log(snapshot.data());
 
   return snapshot.data();
 });
+
+export const addFrontImage = createAsyncThunk(
+  "cars/uploadFrontImage",
+  async (image) => {
+    const { car_image, car_id } = image;
+    console.log(car_id);
+    const frontImageRef = ref(
+      storage,
+      `CarImages/${car_id}/${car_id}-${car_image.name}`,
+    );
+    await uploadBytes(frontImageRef, car_image).then(() => {});
+  },
+);
 
 const carSlice = createSlice({
   name: "Cars",
   initialState: {
     carsArray: [],
     carArray: [],
+    frontImage: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -79,13 +99,17 @@ const carSlice = createSlice({
       state.carsArray = action.payload;
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
-      state.carsArray.push(action.payload);
+      const { car_id, car_name, car_description } = action.payload;
+      state.carsArray.push({ car_id, car_name, car_description });
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.carsArray.filter((car) => car.car_id !== action.payload);
     });
     builder.addCase(fetchItem.fulfilled, (state, action) => {
       state.carArray = action.payload;
+    });
+    builder.addCase(addFrontImage.fulfilled, (state, action) => {
+      state.frontImage = action.payload;
     });
   },
 });
