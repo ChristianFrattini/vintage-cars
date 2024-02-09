@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./add-form.styles.scss";
-import { addFrontImage, addItem } from "../../redux/carSlice";
-import { useDispatch } from "react-redux";
+import { addItem, addFrontImageURL } from "../../redux/carSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-import { storage } from "../../utils/firebase.utils";
+import { addFrontImage, storage } from "../../utils/firebase.utils";
 import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 
 const AddItem = () => {
@@ -13,6 +13,9 @@ const AddItem = () => {
   const [car_description, setDescription] = useState("");
   const [car_image, setImage] = useState(null);
   const dispatch = useDispatch();
+
+  const imageURL = useSelector((state) => state.cars.imageURL);
+  //const imageURL = useSelector(selectImageURL);
 
   const generateRandomNumber = () => {
     return Math.floor(Math.random() * 501);
@@ -26,16 +29,32 @@ const AddItem = () => {
     setIsFormVisible(false);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const car_id = generateRandomNumber().toString();
 
-    const car = { car_id, car_name, car_description };
-    dispatch(addItem(car));
+    const imageDetails = {
+      car_image_name: car_image.name,
+      car_id: car_id,
+    };
+    addFrontImage(car_image, car_id); //uploads image
+    console.log("waiting start");
 
-    const imageDetails = { car_image, car_id };
-    dispatch(addFrontImage(imageDetails));
+    setTimeout(() => {
+      // Code here will be executed after the delay
+
+      dispatch(addFrontImageURL(imageDetails)); //fetches image url
+
+      console.log(imageURL);
+      const car = { car_id, car_name, car_description, imageURL }; //create data doc
+
+      dispatch(addItem(car));
+      console.log("waiting finish");
+    }, 5000);
+
+    //console.log(imageURL);
+
     setIsFormVisible(false);
   };
 

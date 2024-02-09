@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 let car_link;
 
 const Card = ({ car }) => {
-  const { car_id, car_name } = car;
-  //console.log(car.id.car_name);
+  const { car_id, car_name, imageURL } = car;
+  console.log(imageURL);
   car_link = `cars/${car_id}/${car_name}`;
 
   return (
@@ -14,7 +14,9 @@ const Card = ({ car }) => {
       <div className="card-name">
         <h2>{car_name}</h2>
       </div>
-      <div></div>
+      <div>
+        <img src={imageURL} alt={`cars/${car_id}/${car_name}`} />
+      </div>
       <div className="card-learnmore">
         <Link to={car_link}>Learn More</Link>
       </div>

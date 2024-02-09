@@ -8,10 +8,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db, storage } from "../utils/firebase.utils";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const addItem = createAsyncThunk("cars/addCar", async (car) => {
-  const { car_id, car_name, car_description } = car;
+  const { car_id, car_name, car_description, imageURL } = car;
 
   const docRef = doc(db, "cars", car_id);
   const snapshot = await getDoc(docRef);
@@ -19,13 +19,7 @@ export const addItem = createAsyncThunk("cars/addCar", async (car) => {
   if (!snapshot.exists()) {
     //if document does not exist then create one
     try {
-      await setDoc(docRef, { car_id, car_name, car_description });
-      /*const frontImageRef = ref(
-        //image doc ref
-        storage,
-        `CarImages/${car_id}/${car_id}-${car_image.name}`,
-      );
-      await uploadBytes(frontImageRef, car_image).then(() => {}); */
+      await setDoc(docRef, { car_id, car_name, car_description, imageURL });
     } catch (error) {
       console.log("error creating the ", error.message);
       alert("Error during submission. Please try again");
@@ -73,16 +67,26 @@ export const fetchItem = createAsyncThunk("cars/fetchItem", async (id) => {
   return snapshot.data();
 });
 
-export const addFrontImage = createAsyncThunk(
+export const addFrontImageURL = createAsyncThunk(
   "cars/uploadFrontImage",
   async (image) => {
-    const { car_image, car_id } = image;
-    console.log(car_id);
+    const { car_image_name, car_id } = image;
+    //console.log(image.car_image_name);
+
     const frontImageRef = ref(
       storage,
-      `CarImages/${car_id}/${car_id}-${car_image.name}`,
+      `CarImages/${car_id}/${car_id}-${car_image_name}`,
     );
-    await uploadBytes(frontImageRef, car_image).then(() => {});
+    try {
+      const imageURL = await getDownloadURL(frontImageRef);
+      console.log(imageURL);
+      alert("urlfetched");
+      return imageURL;
+    } catch (error) {
+      console.log(error);
+    }
+
+    //return imageURL; // Return the download URL
   },
 );
 
@@ -91,7 +95,7 @@ const carSlice = createSlice({
   initialState: {
     carsArray: [],
     carArray: [],
-    frontImage: [],
+    imageURL: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -108,8 +112,9 @@ const carSlice = createSlice({
     builder.addCase(fetchItem.fulfilled, (state, action) => {
       state.carArray = action.payload;
     });
-    builder.addCase(addFrontImage.fulfilled, (state, action) => {
-      state.frontImage = action.payload;
+    builder.addCase(addFrontImageURL.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.imageURL = action.payload;
     });
   },
 });
