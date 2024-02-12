@@ -6,7 +6,7 @@ let car_link;
 
 const Card = ({ car }) => {
   const { car_id, car_name, imageURL } = car;
-  console.log(imageURL);
+
   car_link = `cars/${car_id}/${car_name}`;
 
   return (

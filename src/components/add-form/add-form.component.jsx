@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./add-form.styles.scss";
-import { addItem, addFrontImageURL } from "../../redux/carSlice";
+import { addItem } from "../../redux/carSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-import { addFrontImage, storage } from "../../utils/firebase.utils";
-import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+//import { addFrontImage } from "../../utils/firebase.utils";
 
 const AddItem = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -14,8 +12,7 @@ const AddItem = () => {
   const [car_image, setImage] = useState(null);
   const dispatch = useDispatch();
 
-  const imageURL = useSelector((state) => state.cars.imageURL);
-  //const imageURL = useSelector(selectImageURL);
+  // const imageURL = useSelector((state) => state.cars.imageURL);
 
   const generateRandomNumber = () => {
     return Math.floor(Math.random() * 501);
@@ -34,28 +31,43 @@ const AddItem = () => {
 
     const car_id = generateRandomNumber().toString();
 
-    const imageDetails = {
-      car_image_name: car_image.name,
-      car_id: car_id,
-    };
-    addFrontImage(car_image, car_id); //uploads image
+    //addFrontImage(car_image, car_id); //uploads image
     console.log("waiting start");
 
-    setTimeout(() => {
-      // Code here will be executed after the delay
+    // Code here will be executed after the delay
 
-      dispatch(addFrontImageURL(imageDetails)); //fetches image url
+    let imageURL;
 
+    convertToBase64(car_image).then((base64String) => {
+      imageURL = base64String;
       console.log(imageURL);
       const car = { car_id, car_name, car_description, imageURL }; //create data doc
 
       dispatch(addItem(car));
       console.log("waiting finish");
-    }, 5000);
+    });
+
+    //console.log(imageURL);
+    //const car = { car_id, car_name, car_description, imageURL }; //create data doc
+
+    //dispatch(addItem(car));
 
     //console.log(imageURL);
 
     setIsFormVisible(false);
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
 
   return (

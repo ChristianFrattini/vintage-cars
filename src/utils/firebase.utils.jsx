@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -44,27 +44,4 @@ export const signOutUser = async () => {
   } catch (error) {
     console.log(error);
   }
-};
-
-/*export const addFrontImaged = createAsyncThunk(
-  "cars/uploadFrontImage",
-  async (image) => {
-    const { car_image, car_id } = image;
-    console.log(car_id);
-    const frontImageRef = ref(
-      storage,
-      `CarImages/${car_id}/${car_id}-${car_image.name}`,
-    );
-    await uploadBytes(frontImageRef, car_image);
-    alert("uploaded");
-  },
-);*/
-
-export const addFrontImage = async (car_image, car_id) => {
-  const frontImageRef = ref(
-    storage,
-    `CarImages/${car_id}/${car_id}-${car_image.name}`,
-  );
-  await uploadBytes(frontImageRef, car_image);
-  alert("uploaded");
 };

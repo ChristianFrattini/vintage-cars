@@ -4,7 +4,7 @@ import Table from "../table/table.component";
 //import { getCarsList } from "../../utils/firebase.utils";
 import AddItem from "../add-form/add-form.component";
 import { useSelector, useDispatch } from "react-redux";
-import { addFrontImageURL, fetchCarsList } from "../../redux/carSlice";
+import { fetchCarsList } from "../../redux/carSlice";
 import { useEffect } from "react";
 
 const Admin = () => {

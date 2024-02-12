@@ -48,10 +48,8 @@ export const deleteItem = createAsyncThunk(
   "cars/deleteItem",
   async (car_id) => {
     try {
-      //const id = { car_id };
-      //console.log(car_id);
       const docRef = doc(db, "cars", car_id.ids);
-      //console.log(docRef);
+
       await deleteDoc(docRef);
     } catch (error) {
       console.log(error);
@@ -67,29 +65,6 @@ export const fetchItem = createAsyncThunk("cars/fetchItem", async (id) => {
   return snapshot.data();
 });
 
-export const addFrontImageURL = createAsyncThunk(
-  "cars/uploadFrontImage",
-  async (image) => {
-    const { car_image_name, car_id } = image;
-    //console.log(image.car_image_name);
-
-    const frontImageRef = ref(
-      storage,
-      `CarImages/${car_id}/${car_id}-${car_image_name}`,
-    );
-    try {
-      const imageURL = await getDownloadURL(frontImageRef);
-      console.log(imageURL);
-      alert("urlfetched");
-      return imageURL;
-    } catch (error) {
-      console.log(error);
-    }
-
-    //return imageURL; // Return the download URL
-  },
-);
-
 const carSlice = createSlice({
   name: "Cars",
   initialState: {
@@ -103,18 +78,14 @@ const carSlice = createSlice({
       state.carsArray = action.payload;
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
-      const { car_id, car_name, car_description } = action.payload;
-      state.carsArray.push({ car_id, car_name, car_description });
+      const { car_id, car_name, car_description, imageURL } = action.payload;
+      state.carsArray.push({ car_id, car_name, car_description, imageURL });
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.carsArray.filter((car) => car.car_id !== action.payload);
     });
     builder.addCase(fetchItem.fulfilled, (state, action) => {
       state.carArray = action.payload;
-    });
-    builder.addCase(addFrontImageURL.fulfilled, (state, action) => {
-      console.log(action.payload);
-      state.imageURL = action.payload;
     });
   },
 });
