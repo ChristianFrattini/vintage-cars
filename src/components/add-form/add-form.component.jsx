@@ -10,9 +10,8 @@ const AddItem = () => {
   const [car_name, setBrand] = useState("");
   const [car_description, setDescription] = useState("");
   const [car_image, setImage] = useState(null);
+  const [car_images, setImages] = useState([]);
   const dispatch = useDispatch();
-
-  // const imageURL = useSelector((state) => state.cars.imageURL);
 
   const generateRandomNumber = () => {
     return Math.floor(Math.random() * 501);
@@ -32,27 +31,31 @@ const AddItem = () => {
     const car_id = generateRandomNumber().toString();
 
     //addFrontImage(car_image, car_id); //uploads image
-    console.log("waiting start");
+    //console.log("waiting start");
+    const imagesURL = [];
 
-    // Code here will be executed after the delay
+    // Convert images to base64 strings
+    for (let i = 0; i < car_images.length; i++) {
+      const base64String = await convertToBase64(car_images[i]).catch(
+        (error) => {
+          console.error("Error converting to base64:", error);
+          return null;
+        },
+      );
 
-    let imageURL;
+      if (base64String) {
+        imagesURL.push(base64String);
+      }
+    }
 
     convertToBase64(car_image).then((base64String) => {
-      imageURL = base64String;
-      console.log(imageURL);
-      const car = { car_id, car_name, car_description, imageURL }; //create data doc
+      const imageURL = base64String;
+      //console.log(imagesURL);
+      const car = { car_id, car_name, car_description, imageURL, imagesURL }; //create data doc
 
       dispatch(addItem(car));
-      console.log("waiting finish");
+      //console.log("waiting finish");
     });
-
-    //console.log(imageURL);
-    //const car = { car_id, car_name, car_description, imageURL }; //create data doc
-
-    //dispatch(addItem(car));
-
-    //console.log(imageURL);
 
     setIsFormVisible(false);
   };
@@ -109,7 +112,15 @@ const AddItem = () => {
                 />
               </label>
               <br />
-
+              <label>
+                Upload up to 6 images for Photo Gallery:
+                <input
+                  type="file"
+                  onChange={(e) => setImages(e.target.files)}
+                  required
+                  multiple
+                />
+              </label>
               <br />
 
               <br />

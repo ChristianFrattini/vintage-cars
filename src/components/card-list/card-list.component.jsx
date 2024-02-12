@@ -3,7 +3,7 @@ import Card from "../card/card.component";
 import { useDispatch, useSelector } from "react-redux";
 //import { getCarsList } from "../../utils/firebase.utils";
 import { useEffect } from "react";
-import { fetchCarsList } from "../../redux/carSlice";
+import { fetchCarsList, fetchItem } from "../../redux/carSlice";
 //import { cars } from '../../utils/firebase.utils';
 
 const CardList = () => {
@@ -11,7 +11,7 @@ const CardList = () => {
   const dispatch = useDispatch();
   //console.log(cars);
   const cars = useSelector((state) => state.cars.carsArray);
-  //console.log(cars);
+  console.log(cars);
 
   useEffect(() => {
     dispatch(fetchCarsList());

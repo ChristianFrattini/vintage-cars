@@ -11,7 +11,7 @@ import { db, storage } from "../utils/firebase.utils";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const addItem = createAsyncThunk("cars/addCar", async (car) => {
-  const { car_id, car_name, car_description, imageURL } = car;
+  const { car_id, car_name, car_description, imageURL, imagesURL } = car;
 
   const docRef = doc(db, "cars", car_id);
   const snapshot = await getDoc(docRef);
@@ -19,7 +19,13 @@ export const addItem = createAsyncThunk("cars/addCar", async (car) => {
   if (!snapshot.exists()) {
     //if document does not exist then create one
     try {
-      await setDoc(docRef, { car_id, car_name, car_description, imageURL });
+      await setDoc(docRef, {
+        car_id,
+        car_name,
+        car_description,
+        imageURL,
+        imagesURL,
+      });
     } catch (error) {
       console.log("error creating the ", error.message);
       alert("Error during submission. Please try again");
@@ -78,8 +84,15 @@ const carSlice = createSlice({
       state.carsArray = action.payload;
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
-      const { car_id, car_name, car_description, imageURL } = action.payload;
-      state.carsArray.push({ car_id, car_name, car_description, imageURL });
+      const { car_id, car_name, car_description, imageURL, imagesURL } =
+        action.payload;
+      state.carsArray.push({
+        car_id,
+        car_name,
+        car_description,
+        imageURL,
+        imagesURL,
+      });
     });
     builder.addCase(deleteItem.fulfilled, (state, action) => {
       state.carsArray.filter((car) => car.car_id !== action.payload);
