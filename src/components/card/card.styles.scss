@@ -11,6 +11,8 @@
   transition: transform 0.25s ease-out;
   color: white;
   align-items: stretch; /* Ensure the items stretch to fill the container vertically */
+  width: 40%; /* CARD SIZE */
+  height: 40%; /*CARD SIZE */
 
   .image-container {
     width: 100%; /* Ensure the image fills the container horizontally */

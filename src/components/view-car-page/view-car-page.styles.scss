@@ -1,7 +1,7 @@
 .car-details {
   /* Add styles for the car details container */
   padding: 20px;
-  border: 1px solid #ccc;
+
   border-radius: 5px;
   margin-bottom: 20px;
 
@@ -13,16 +13,38 @@
     align-items: center;
     grid-gap: 10px;
   }
+
+  .car-description-container {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-top: 20px;
+    width: 100%;
+    max-width: auto;
+  }
 }
 
 .car-details h2 {
   /* Add styles for the car name and description headings */
   margin-bottom: 10px;
+  color: white;
+}
+
+.car-details h3 {
+  /* Add styles for the car name and description headings */
+  margin-bottom: 10px;
+  color: white;
+}
+
+.car-details p {
+  /* Add styles for the car name and description headings */
+  margin-bottom: 10px;
+  color: white;
 }
 
 .car-details img {
   /* Add styles for the main car image */
   width: 100%;
-  max-width: 400px; /* Example width limitation */
+  max-width: 600px; /* Example width limitation */
   height: auto;
 }

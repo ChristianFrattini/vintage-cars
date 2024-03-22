@@ -1,6 +1,7 @@
 .card-list {
   display: flex;
   flex-wrap: wrap; /* Allow cards to wrap to the next line if necessary */
-  justify-content: space-between; /* Distribute cards evenly across the container */
+  justify-content: center; /* Distribute cards evenly across the container */
+  grid-template-columns: 1fr 1fr; /* DRID TEMPLATE */
   gap: 20px; /* Spacing between cards */
 }

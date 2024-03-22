@@ -27,13 +27,20 @@ const ViewCarPage = () => {
         <div>
           <h2>{car.car_name}</h2>
           <img src={car.imageURL} alt={car.car_name} />
-          <h2>{car.car_description}</h2>
-          <div className="image-list">
-            {car.imagesURL &&
-              car.imagesURL.map((image, index) => (
-                <PhotoGallery key={index} image={image} />
-              ))}
+          <div className="car-description-container">
+            <h2>Car Description</h2>
+            <p>{car.car_description}</p>
           </div>
+          <div className="photogallery-container">
+            <h2>Photo Gallery</h2>
+            <div className="image-list">
+              {car.imagesURL &&
+                car.imagesURL.map((image, index) => (
+                  <PhotoGallery key={index} image={image} />
+                ))}
+            </div>
+          </div>
+
           <h3>Email</h3>
         </div>
       )}
