@@ -1,23 +1,35 @@
 .card-container {
-    display:flex;
-    flex-direction: column;
-    border: 2px solid whitesmoke;
-    border-radius: 5px;
-    padding: 25px;
-    cursor: pointer;
-    -moz-osx-font-smoothing: grayscale;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    transition: transform 0.25s ease-out;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid whitesmoke;
+  border-radius: 5px;
+  padding: 25px;
+  cursor: pointer;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+  color: white;
+  align-items: stretch; /* Ensure the items stretch to fill the container vertically */
 
-    .contacts {
-        border: 1px solid grey;
-        border-radius: 5px; 
-        
-    }
+  .image-container {
+    width: 100%; /* Ensure the image fills the container horizontally */
+    height: 100%; /* Ensure the image fills the container vertically */
+    overflow: hidden; /* Hide any overflow of the image */
   }
-  
-  .card-container:hover {
-    transform: scale(1.05);
+  .image-container img {
+    /* Ensure the image covers the entire container without distortion */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Scale the image to maintain aspect ratio and cover the container */
   }
+
+  .contacts {
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+}
+
+.card-container:hover {
+  transform: scale(1.05);
+}

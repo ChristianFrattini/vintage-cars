@@ -14,7 +14,7 @@ const Card = ({ car }) => {
       <div className="card-name">
         <h2>{car_name}</h2>
       </div>
-      <div>
+      <div className="image-container">
         <img src={imageURL} alt={`cars/${car_id}/${car_name}`} />
       </div>
       <div className="card-learnmore">

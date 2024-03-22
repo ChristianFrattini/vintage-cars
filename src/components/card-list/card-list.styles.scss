@@ -1,7 +1,6 @@
-.card-list{
-    width: 85;
-    margin:0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+.card-list {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line if necessary */
+  justify-content: space-between; /* Distribute cards evenly across the container */
+  gap: 20px; /* Spacing between cards */
 }
