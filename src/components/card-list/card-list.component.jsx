@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./card-list.styles.scss";
 import Card from "../card/card.component";
 import { useDispatch, useSelector } from "react-redux";

@@ -77,6 +77,7 @@ const carSlice = createSlice({
     carsArray: [],
     carArray: [],
     imageURL: null,
+    imagesURL: null,
   },
   reducers: {},
   extraReducers: (builder) => {

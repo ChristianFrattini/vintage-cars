@@ -1,0 +1,13 @@
+.photo-gallery {
+  position: relative;
+}
+
+.photo-gallery img {
+  transition: transform 0.3s ease;
+  width: 55%;
+  height: auto;
+}
+
+.photo-gallery img.expanded {
+  transform: scale(2.5); /* Example transformation */
+}

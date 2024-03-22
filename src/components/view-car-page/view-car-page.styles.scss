@@ -1,0 +1,28 @@
+.car-details {
+  /* Add styles for the car details container */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  .image-list {
+    width: 85;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+  }
+}
+
+.car-details h2 {
+  /* Add styles for the car name and description headings */
+  margin-bottom: 10px;
+}
+
+.car-details img {
+  /* Add styles for the main car image */
+  width: 100%;
+  max-width: 400px; /* Example width limitation */
+  height: auto;
+}

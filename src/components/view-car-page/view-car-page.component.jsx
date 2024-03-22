@@ -3,7 +3,7 @@ import "./view-car-page.styles.scss";
 import { fetchItem } from "../../redux/carSlice";
 //import { selectCar } from "../../utils/firebase.utils";
 import { useEffect } from "react";
-import Gallery from "../gallery/gallery.component";
+import PhotoGallery from "../photo-gallery/photo-gallery.component";
 
 const ViewCarPage = () => {
   const currentURL = window.location.href;
@@ -17,19 +17,26 @@ const ViewCarPage = () => {
 
   useEffect(() => {
     dispatch(fetchItem(carId.toString()));
-    //console.log(carId.toString());
-  }, [dispatch]);
+  }, [dispatch, carId]);
+  console.log(car.imagesURL);
   console.log(car);
 
   return (
-    <div>
-      <h2>{car.car_name}</h2>
-
-      <img src={car.imageURL} />
-
-      <h2>{car.car_description}</h2>
-
-      <h3>Email</h3>
+    <div className="car-details">
+      {car && (
+        <div>
+          <h2>{car.car_name}</h2>
+          <img src={car.imageURL} alt={car.car_name} />
+          <h2>{car.car_description}</h2>
+          <div className="image-list">
+            {car.imagesURL &&
+              car.imagesURL.map((image, index) => (
+                <PhotoGallery key={index} image={image} />
+              ))}
+          </div>
+          <h3>Email</h3>
+        </div>
+      )}
     </div>
   );
 };
